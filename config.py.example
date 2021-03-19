@@ -1,0 +1,19 @@
+[comanage_database]
+
+host=localhost
+database=db_name
+user=db_user
+password=db_password
+
+[proxystatistics_database]
+
+host=localhost
+database=db_name
+user=db_user
+password=db_password
+
+[logging]
+
+level = INFO
+folder = log
+file = getRegisteredUsers.log
