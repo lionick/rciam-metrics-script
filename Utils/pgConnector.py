@@ -83,3 +83,9 @@ class comanagePgConnector(pgConnector):
 class proxystatisticsPgConnector(pgConnector):
    def __init__(self, filename = "config.py", section = "proxystatistics_database"):
      super().__init__(filename, section)
+
+# Subclass of pgConnector
+@singleton
+class nginxLogsPgConnector(pgConnector):
+   def __init__(self, filename = "config.py", section = "nginxlogs_database"):
+     super().__init__(filename, section)
