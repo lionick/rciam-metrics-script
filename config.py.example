@@ -15,13 +15,19 @@ password=db_password
 [nginxlogs_database]
 
 host=localhost
-database=egi_dev_proxy
-user=egi_dev_proxy
-password=egi_dev_pr0X^
-table=access_logs_z
+database=db_name
+user=db_user
+password=db_password
+
+[destination_database]
+
+host=localhost
+database=db_name
+user=db_user
+password=db_password
 
 [logging]
 
 level = INFO
 folder = log
-file = getRegisteredUsers.log
+file = exportStats.log
