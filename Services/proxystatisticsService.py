@@ -1,6 +1,6 @@
 from Utils.pgConnector import proxystatisticsPgConnector
 from Utils import configParser
-from Model import Metric
+from Model.Metric import Metric
 from Logger import log
 import time
 from datetime import date, datetime, timedelta
