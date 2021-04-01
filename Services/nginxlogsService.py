@@ -31,7 +31,7 @@ class nginxlogsService(object):
       timestamp = int(time.time())
       # Get the new metrics
       metrics_value = pgConn.execute_select(
-          "SELECT count(*) FROM access_log_z WHERE log_message LIKE '%/oidc/{0}%' {1}".format(metric, whereClause))
+          "SELECT count(*) FROM syslogs WHERE log_message LIKE '%/oidc/{0}%' {1}".format(metric, whereClause))
       metrics_results.append(Metric(
           None, metric, metrics_value[0][0] + previousValue, datetime.fromtimestamp(timestamp)))
       # Add metrics to total api requests
