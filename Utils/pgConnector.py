@@ -86,15 +86,17 @@ class proxystatisticsPgConnector(pgConnector):
 
 # Subclass of pgConnector
 @singleton
-class nginxLogsPgConnector(pgConnector):
-   def __init__(self, filename = "config.py", section = "nginxlogs_database"):
-     super().__init__(filename, section)
-
-# Subclass of pgConnector
-@singleton
 class destinationPgConnector(pgConnector):
    def __init__(self, filename = "config.py", section = "destination_database"):
      super().__init__(filename, section)
+   def execute_insert(self, query, params):   
+    try:
+      cur = self.conn.cursor()
+      cur.execute(query, params)
+      self.conn.commit()
+    except Exception as err:
+      self.logger.error(str(err).strip())
+      sys.exit(1)  
    def execute_and_commit(self, query):   
     try:
       cur = self.conn.cursor()

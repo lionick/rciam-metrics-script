@@ -1,4 +1,4 @@
-from Utils.pgConnector import nginxLogsPgConnector
+from Utils.pgConnector import destinationPgConnector
 from Model.Metric import Metric
 from Utils import configParser
 from Logger import log
@@ -11,7 +11,7 @@ class nginxlogsService(object):
 
   @classmethod
   def getApiRequests(self):
-    pgConn = nginxLogsPgConnector()
+    pgConn = destinationPgConnector()
     metrics_names = ["token", "authorize",
                      "userinfo", "devicecode", "introspect"]
     metrics_results = []

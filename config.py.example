@@ -12,13 +12,6 @@ database=db_name
 user=db_user
 password=db_password
 
-[nginxlogs_database]
-
-host=localhost
-database=db_name
-user=db_user
-password=db_password
-
 [destination_database]
 
 host=localhost
