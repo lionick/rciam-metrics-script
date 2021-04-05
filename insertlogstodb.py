@@ -34,5 +34,4 @@ for line in lines:
   date_time_obj = datetime.datetime.strptime(
       unformatted_date, '%d/%b/%Y %H:%M:%S %z')
   if(date_time_obj >= date_time_from and date_time_obj < date_time_to):
-    #pgConn.execute_insert("INSERT INTO syslogs(log_message, created) VALUES(%s,%s) ON CONFLICT DO NOTHING", [log_message, date_time_obj])
-    print(line)
+    pgConn.execute_insert("INSERT INTO syslogs(log_message, created) VALUES(%s,%s) ON CONFLICT DO NOTHING", [log_message, date_time_obj])
