@@ -28,18 +28,25 @@ class nginxlogsService(object):
         whereClause = " AND created > '{0}'".format(dayFrom)
       else:
         previousValue = 0
-      timestamp = int(time.time())
+      # Get the date of the last log processed
+      lastDate = pgConn.execute_select("SELECT max(created) FROM syslogs")
+      
+      if lastDate[0][0]!=None:
+        lastDate = lastDate[0][0]
+      else:
+        lastDate = datetime.now()
+
       # Get the new metrics
       metrics_value = pgConn.execute_select(
-          "SELECT count(*) FROM syslogs WHERE log_message LIKE '%/oidc/{0}%' {1}".format(metric, whereClause))
+          "SELECT count(*) FROM syslogs WHERE log_message LIKE '%/oidc/{0}%' AND service='nginx' {1}".format(metric, whereClause))
       metrics_results.append(Metric(
-          None, metric, metrics_value[0][0] + previousValue, datetime.fromtimestamp(timestamp)))
+          None, metric, metrics_value[0][0] + previousValue, lastDate))
       # Add metrics to total api requests
       api_requests += metrics_value[0][0] + previousValue
 
     self.logger.info("{0} total api requests".format(api_requests))
     metrics_results.append(
-        Metric(None, "api_requests", api_requests, datetime.fromtimestamp(timestamp)))
+        Metric(None, "api_requests", api_requests, lastDate))
     # Save all metrics to database
     Metric.saveAll(metrics_results)
     pgConn.close()
