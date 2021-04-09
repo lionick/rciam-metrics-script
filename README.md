@@ -1,10 +1,13 @@
-# rciam-metrics-script
-A Python-based tool for exporting metrics to files.
+# rciam-metrics
+A Python-based tool for exporting metrics to file (Prometheus format) and save them to a database:
+- Registered Users from CoManage
+- Total Logins from proxystatistics
+- Total Api requests from nginx logs
 
 ## Installation
 ```
-git clone https://github.com/lionick/rciam-metrics-script.git
-cd rciam-metrics-script
+git clone https://github.com/rciam/rciam-metrics.git
+cd rciam-metrics
 cp config.py.example config.py
 vi config.py
 ```
