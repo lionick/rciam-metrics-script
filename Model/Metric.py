@@ -21,6 +21,7 @@ class Metric(object):
     pgConn.execute_and_commit(
       "INSERT INTO {0}(metric_name, metric_value, created) VALUES ('{1}', '{2}', '{3}')".format(Metric.METRICSTABLE, metrics.metric_name, metrics.metric_value, metrics.created)
     )
+    pgConn.close()
   
   @classmethod
   def saveAll(self, metricsList):
@@ -29,3 +30,4 @@ class Metric(object):
     for item in metricsList:
       values += "INSERT INTO {0}(metric_name, metric_value, created) VALUES ('{1}', '{2}', '{3}');".format(Metric.METRICSTABLE, item.metric_name, item.metric_value, item.created)
     pgConn.execute_and_commit(values)
+    pgConn.close()

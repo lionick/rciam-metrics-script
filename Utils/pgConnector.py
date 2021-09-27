@@ -30,7 +30,7 @@ class pgConnector:
     self.params = self.config(filename, section)
     if self.conn == None:
       try:
-        self.logger.debug('Connecting to the PostgreSQL database...')
+        self.logger.debug('Connecting to the PostgreSQL database...{0}'.format(section))
         self.conn = psycopg2.connect(**self.params)
       except psycopg2.OperationalError as err:
         self.logger.error(str(err).strip())
@@ -60,6 +60,9 @@ class pgConnector:
   def execute_select(self, query):
 
     # create a cursor
+    if not hasattr(self.conn, 'cursor'):
+      self.__init__()
+
     cur = self.conn.cursor()
 
     # execute a statement
@@ -70,7 +73,8 @@ class pgConnector:
   def close(self):
 
     self.conn.close()
-    self.logger.debug('Database connection closed.')
+    self.conn = None
+    self.logger.debug('Database connection "{0}" closed'.format(self.section))
 
 # Subclass of pgConnector
 @singleton
@@ -89,8 +93,11 @@ class proxystatisticsPgConnector(pgConnector):
 class destinationPgConnector(pgConnector):
    def __init__(self, filename = "config.py", section = "destination_database"):
      super().__init__(filename, section)
-   def execute_insert(self, query, params):   
+   def execute_insert(self, query, params):
     try:
+      # create a cursor
+      if not hasattr(self.conn, 'cursor'):
+        self.__init__()
       cur = self.conn.cursor()
       cur.execute(query, params)
       self.conn.commit()
@@ -99,6 +106,9 @@ class destinationPgConnector(pgConnector):
       sys.exit(1)  
    def execute_and_commit(self, query):   
     try:
+      # create a cursor
+      if not hasattr(self.conn, 'cursor'):
+        self.__init__()
       cur = self.conn.cursor()
       cur.execute(query)
       self.conn.commit()
