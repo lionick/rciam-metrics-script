@@ -47,7 +47,7 @@ class nginxlogsService(object):
     self.logger.info("{0} total api requests".format(api_requests))
     metrics_results.append(
         Metric(None, "api_requests", api_requests, lastDate))
+    pgConn.close()
     # Save all metrics to database
     Metric.saveAll(metrics_results)
-    pgConn.close()
     return api_requests

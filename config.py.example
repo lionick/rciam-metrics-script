@@ -19,6 +19,12 @@ database=db_name
 user=db_user
 password=db_password
 
+[metric_users_memberships_in_cous]
+
+name = users_memberships_in_cous
+regex_cou_name =
+co_id =
+
 [logging]
 
 level = INFO
