@@ -8,7 +8,8 @@ from Services.comanageService import comanageService
 from Services.proxystatisticsService import proxystatisticsService
 from Services.nginxlogsService import nginxlogsService
 import time
-
+#delete Logs older than 18 months
+nginxlogsService.deleteOldLogs()
 users = comanageService.getRegisteredUsers()
 registeredUsersMetric = "aai_registered_users_total {0}".format(users)
 logins = proxystatisticsService.getUsersLogins()
