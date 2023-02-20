@@ -56,7 +56,7 @@ class nginxlogsService(object):
         if(endpoint==""):
           continue
         if(i>0):
-          query_endpoints+=" AND "
+          query_endpoints+=" OR "
         query_endpoints+="log_message LIKE '%{0}%'".format(endpoint)
         i=i+1
       query_endpoints+=") "
