@@ -30,3 +30,14 @@ co_id =
 level = INFO
 folder = log
 file = exportStats.log
+
+[delete_logs_database]
+older_than = 540
+
+[endpoints]
+token = token.endpoint.1
+        token.endpoint.2
+authorize = authorize.endpoint.1
+userinfo = userinfo.endpoint.1
+devicecode = devicecode.endpoint.1
+introspect = introspect.endpoint.1
